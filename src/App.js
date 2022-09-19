@@ -1,6 +1,6 @@
 import React from "react";
-
-const app = () => {
+import UserTabel from "./tabels/UserTabel";
+const App = () => {
   return (
     <div className="container">
       <h1>CRUD App Using Hooks</h1>
@@ -10,10 +10,11 @@ const app = () => {
         </div>
         <div className="flex-large">
           <h2>View users</h2>
+          <UserTabel />
         </div>
       </div>
     </div>
   );
 };
 
-export default app;
+export default App;
