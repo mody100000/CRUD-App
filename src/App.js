@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import UserTable from "./tables/UserTable";
 import AddUserForm from "./forms/AddUserForm";
 import EditUserForm from "./forms/EditUserForm";
+const usersData = [
+  { id: 1, name: "mody", username: "mody10000" },
+  { id: 2, name: "mosh", username: "moshhamdani" },
+  { id: 3, name: "whatever", username: "whatever1000" },
+];
+const initialFormState = { id: null, name: "", username: "" };
 const App = () => {
-  const usersData = [
-    { id: 1, name: "mody", username: "mody10000" },
-    { id: 2, name: "mosh", username: "moshhamdani" },
-    { id: 3, name: "whatever", username: "whatever1000" },
-  ];
-
   const [users, setUsers] = useState(usersData);
   const [editing, setEditing] = useState(false);
-  const initialFormState = { id: null, name: "", username: "" };
   const [currentUser, setCurrentUser] = useState(initialFormState);
 
   const addUser = (user) => {
     user.id = users.length + 1;
-    setUsers([...users, user]);
+    const clonedUsers = [...users];
+    clonedUsers.push(user);
+    setUsers(clonedUsers);
   };
 
   const deleteUser = (id) => {
@@ -34,6 +35,10 @@ const App = () => {
     setEditing(false);
     setUsers(users.map((user) => (user.id === id ? updatedUser : user)));
   };
+  const cancelEditing = () => {
+    setEditing(false);
+  };
+  console.log("render");
   return (
     <div className="container">
       <h1>CRUD App Using Hooks</h1>
@@ -43,7 +48,7 @@ const App = () => {
             <div>
               <h2> Edite user</h2>
               <EditUserForm
-                setEditing={setEditing}
+                cancelEditing={cancelEditing}
                 currentUser={currentUser}
                 updateUser={updateUser}
               ></EditUserForm>
